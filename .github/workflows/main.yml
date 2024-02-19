@@ -17,4 +17,4 @@ jobs:
           bucket-region: ${{ secrets.S3_BUCKET_REGION }}
           dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
           invalidation: /
-          files-to-include: src/
+          files-to-include: ./src/*
