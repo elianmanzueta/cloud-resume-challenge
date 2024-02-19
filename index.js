@@ -1,6 +1,9 @@
-const counter = document.querySelector(".counter-number");
+const counter = document.querySelector(".counter");
+
 async function updateCounter() {
-    let response = await fetch("https://kxi6m67c5itf47n66x63hlewke0bxjbu.lambda-url.us-east-1.on.aws/");
+    let response = await fetch("https://qdmoubt7xmhvyfbjw3gb6t5p740ojjfl.lambda-url.us-east-2.on.aws/");
     let data = await response.json();
     counter.innerHTML = `This site has been visited ${data} times!`;
 }
+
+updateCounter();
