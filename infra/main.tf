@@ -31,7 +31,7 @@ variable "secret_key" {
 
 # DynamoDB
 resource "aws_dynamodb_table" "database" {
-  name         = "terraform-test-resume-challenge"
+  name         = "view-count"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "id"
 
@@ -78,7 +78,7 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
           "Resource" : "${aws_s3_bucket.bucket.arn}/*",
           "Condition" : {
             "StringEquals" : {
-              "AWS:SourceArn" : aws_cloudfront_distribution.cloudfront.arn
+              "AWS:SourceArn" : "${aws_cloudfront_distribution.cloudfront.arn}"
             }
           }
         }
@@ -110,7 +110,7 @@ resource "aws_lambda_function_url" "function-url" {
   authorization_type = "NONE"
 
   cors {
-    allow_origins = ["https://resume.eliandm.com"]
+    allow_origins = ["*"]
   }
 
 }
@@ -122,6 +122,10 @@ data "aws_cloudfront_cache_policy" "policy" {
 
 }
 
+data "aws_cloudfront_origin_request_policy" "request_policy" {
+  name = "Managed-CORS-S3Origin"
+}
+
 resource "aws_cloudfront_distribution" "cloudfront" {
 
   enabled             = true
@@ -130,17 +134,18 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   aliases             = ["resume.eliandm.com"]
 
   origin {
-    origin_id                = aws_s3_bucket.bucket.bucket_regional_domain_name
+    origin_id                = aws_s3_bucket.bucket.id
     domain_name              = aws_s3_bucket.bucket.bucket_domain_name
     origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
   }
 
   default_cache_behavior {
-    viewer_protocol_policy = "https-only"
+    viewer_protocol_policy = "redirect-to-https"
     allowed_methods        = ["HEAD", "GET"]
     cached_methods         = ["HEAD", "GET"]
-    target_origin_id       = aws_s3_bucket.bucket.bucket_regional_domain_name
+    target_origin_id       = aws_s3_bucket.bucket.id
     cache_policy_id        = data.aws_cloudfront_cache_policy.policy.id
+    origin_request_policy_id = data.aws_cloudfront_origin_request_policy.request_policy.id
   }
 
   viewer_certificate {
