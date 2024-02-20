@@ -93,14 +93,6 @@ resource "aws_s3_bucket_versioning" "bucket_versioning" {
     status = "Enabled"
   }
 }
-
-resource "aws_s3_object" "srcfiles" {
-  for_each = fileset("/Users/elian/projects/cloud-resume-project/src", "**/**")
-
-  bucket = aws_s3_bucket.bucket.id
-  key    = each.value
-
-}
 ##########
 
 # Lambda
