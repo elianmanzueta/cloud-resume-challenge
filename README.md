@@ -6,8 +6,8 @@ Tasks achieved:
 
 - Created a website using HTML and CSS.
 - Hosted the website on an AWS S3 bucket and allowed access only through a CloudFront distribution.
-- Kept track of the amount of people who have visited the website using a combination of Lambda functions, a DynamoDB database, and JavaScript.
--Used Terraform to quickly provision and de-provision the resources used in the project.
+- Implemented visitor tracking using a combination of Lambda functions, a DynamoDB database, and JavaScript.
+- Used Terraform to quickly provision and de-provision the resources used in the project.
 - Incorporated a CI/CD pipeline using GitHub Actions to sync site changes to an S3 bucket.
 
 ![diagram](src/assets/diagram.png)
