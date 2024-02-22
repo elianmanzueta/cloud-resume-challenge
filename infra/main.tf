@@ -110,7 +110,7 @@ resource "aws_lambda_function_url" "function-url" {
   authorization_type = "NONE"
 
   cors {
-    allow_origins = ["*"]
+    allow_origins = ["https://resume.eliandm.com"]
   }
 
 }
