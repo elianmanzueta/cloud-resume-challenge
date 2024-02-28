@@ -140,11 +140,11 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   }
 
   default_cache_behavior {
-    viewer_protocol_policy = "redirect-to-https"
-    allowed_methods        = ["HEAD", "GET"]
-    cached_methods         = ["HEAD", "GET"]
-    target_origin_id       = aws_s3_bucket.bucket.id
-    cache_policy_id        = data.aws_cloudfront_cache_policy.policy.id
+    viewer_protocol_policy   = "redirect-to-https"
+    allowed_methods          = ["HEAD", "GET"]
+    cached_methods           = ["HEAD", "GET"]
+    target_origin_id         = aws_s3_bucket.bucket.id
+    cache_policy_id          = data.aws_cloudfront_cache_policy.policy.id
     origin_request_policy_id = data.aws_cloudfront_origin_request_policy.request_policy.id
   }
 
