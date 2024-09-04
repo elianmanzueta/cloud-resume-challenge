@@ -53,7 +53,6 @@ resource "aws_dynamodb_table_item" "views" {
   }
   ITEM
 }
-##########
 
 # S3 Bucket
 resource "aws_s3_bucket" "bucket" {
@@ -93,7 +92,6 @@ resource "aws_s3_bucket_versioning" "bucket_versioning" {
     status = "Enabled"
   }
 }
-##########
 
 # Lambda
 resource "aws_lambda_function" "lambda" {
@@ -114,7 +112,6 @@ resource "aws_lambda_function_url" "function-url" {
   }
 
 }
-##########
 
 # Cloudfront
 data "aws_cloudfront_cache_policy" "policy" {
@@ -171,4 +168,3 @@ resource "aws_cloudfront_origin_access_control" "oac" {
   origin_access_control_origin_type = "s3"
 
 }
-##########
